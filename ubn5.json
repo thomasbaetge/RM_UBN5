@@ -1,0 +1,178 @@
+[
+    {
+        "id": "791fec51d972eee2",
+        "type": "tab",
+        "label": "UBN5 Battery",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1098bd540a17f69",
+        "type": "inject",
+        "z": "791fec51d972eee2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "d3ea284b0c2146f8"
+            ]
+        ]
+    },
+    {
+        "id": "d3ea284b0c2146f8",
+        "type": "exec",
+        "z": "791fec51d972eee2",
+        "command": "",
+        "addpay": "",
+        "append": "python3 UBN5.py",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "a09f900150013d75",
+                "51e3b434304dc319"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "61eecb07075f5c4e",
+        "type": "debug",
+        "z": "791fec51d972eee2",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a09f900150013d75",
+        "type": "function",
+        "z": "791fec51d972eee2",
+        "name": "function 1",
+        "func": "msg.payload = parseInt(msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 80,
+        "wires": [
+            [
+                "61eecb07075f5c4e"
+            ]
+        ]
+    },
+    {
+        "id": "51e3b434304dc319",
+        "type": "function",
+        "z": "791fec51d972eee2",
+        "name": "function 2",
+        "func": "if (isNaN(msg.payload) == false )\n{\nmsg.payload = {\n    \"command\": \"udevice\",\n    \"idx\": 564,\n    \"nvalue\": parseFloat(msg.payload),\n    \"svalue\": msg.payload\n}\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "65900ae51b7984e9",
+                "37ce7cdf182e2509"
+            ]
+        ]
+    },
+    {
+        "id": "65900ae51b7984e9",
+        "type": "debug",
+        "z": "791fec51d972eee2",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "37ce7cdf182e2509",
+        "type": "mqtt out",
+        "z": "791fec51d972eee2",
+        "name": "",
+        "topic": "domoticz/in",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "997114b781c37db4",
+        "x": 650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "997114b781c37db4",
+        "type": "mqtt-broker",
+        "name": "TBADS2",
+        "broker": "192.168.2.11",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
